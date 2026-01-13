@@ -1,5 +1,4 @@
-python 3.11.5
-pip install fastapi[standard]
+pip install fastapi
 pip install uvicorn
 pip install chromadb
 pip install sentence-transformers
