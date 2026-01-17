@@ -1,0 +1,29 @@
+syntax = "proto3";
+package semlog.core_engine;
+
+service CoreEngineService {
+    rpc PostIngestion(IngestLogRequest) returns (IngestLogResponse);
+    rpc GetStatus(GetStatsRequest) returns (GetStatsResponse);
+}
+
+message IngestLogRequest {
+    string service_name = 1;
+    string timestamp = 2;
+    string message = 3;
+}
+
+message IngestLogResponse {
+    string status = 1;
+    string action = 2;
+    string id = 3;
+    string source = 4;
+}
+
+message GetStatsRequest{
+}
+
+message GetStatsResponse {
+    string total_logs = 1;
+    string compressed_logs = 2;
+    string compression_ratio = 3;
+}

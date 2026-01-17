@@ -1,0 +1,2 @@
+python -m grpc_tools.protoc -I./schemas --python_out=./gateway/proto --grpc_python_out=./gateway/proto schemas/*.proto
+python -m grpc_tools.protoc -I./schemas --python_out=./core_engine/proto --grpc_python_out=./core_engine/proto schemas/*.proto

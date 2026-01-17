@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+chromadb
+fastembed
+pydantic
+requests
+colorama
