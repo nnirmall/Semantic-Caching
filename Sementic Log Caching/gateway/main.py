@@ -17,14 +17,13 @@ app = FastAPI(title="SemLog: Semantic Log Compressor")
 # async def shutdown_event():
 #     stub_manager.close()
 
-# @app.post("/v1/ingest")
-# async def ingest_log(request):
-#     """
-#     Log Ingesting entrypoint. 
-#     Accepts logs from ANY source (CLI, Kafka, Code).
-#     """
-#     # print("Received ingest log request..."+ request)
-#     return CoreEngineService().post_ingest_log(request)
+@app.post("/v1/ingest")
+async def ingest_log(request: dict):
+    """
+    Log Ingesting entrypoint. 
+    Accepts logs from ANY source (CLI, Kafka, Code).
+    """
+    return CoreEngineService().post_ingest_log(request)
     
 @app.get("/stats")
 async def stats():
