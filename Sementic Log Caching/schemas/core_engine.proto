@@ -1,4 +1,5 @@
-syntax = "proto3";
+edition = "2023";
+option features.field_presence = IMPLICIT;
 package semlog.core_engine;
 
 service CoreEngineService {
@@ -13,17 +14,22 @@ message IngestLogRequest {
 }
 
 message IngestLogResponse {
-    string status = 1;
-    string action = 2;
-    string id = 3;
-    string source = 4;
+    string action = 1;
+    string semantic_id = 2;
+    string compression_ratio = 3;
+}
+
+message PatternStats {
+    string pattern = 1;
+    int32 occurrence_count = 2;
 }
 
 message GetStatsRequest{
 }
 
 message GetStatsResponse {
-    string total_logs = 1;
-    string compressed_logs = 2;
-    string compression_ratio = 3;
+    int32 unique_semantic_patterns = 1;
+    int32 total_logs_absorbed = 2;
+    string compression_rate = 3;
+    repeated PatternStats top_patterns = 4;
 }
