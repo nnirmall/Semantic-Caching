@@ -1,7 +1,3 @@
-
-
-
-from interface.log_request import LogRequest
 import grpc
 from google.protobuf.json_format import MessageToDict
 from core_engine.services.engine import LogEngine
@@ -10,66 +6,61 @@ from core_engine.proto import core_engine_pb2, core_engine_pb2_grpc
 class EnginerServicer(core_engine_pb2_grpc.CoreEngineServiceServicer):
     """
         Implementation of the EngineService gRPC service.
-
         Log Ingesting entrypoint. 
         Accepts logs from ANY source (CLI, Kafka, Code).
-    
-    """
-    # def __init__(self, manager_class):
-    #     self.manager = manager_class()
-    #     print("[Server] EnginerServicer initialized")
 
-    def IngestLog(self, request: LogRequest, context):
-        data = LogEngine().process(request.payload)
+    """
+    def __init__(self):
+        self.manager_class = LogEngine()
+        print("\nCore Engine is up and running...")
+
+    def PostIngestion(self, request, context):
+
+        payload = MessageToDict(
+            request,
+            preserving_proto_field_name=True,
+            always_print_fields_with_no_presence=True
+        )
+        data = self.manager_class.process(payload)
 
         if not data:
             return core_engine_pb2.IngestLogResponse(
                 context.set_code(5),
                 context.set_details("Ingest not found"),
-                status = False,
                 action = "failed",
-                id = "",
-                source = "no source",
+                semantic_id = "",
+                compression_ratio = " no compression_ratio",
                
             )
+        
         return core_engine_pb2.IngestLogResponse(
-            status = data.success,
-            action = data.action,
-            id = data.id,
-            source = request.source
+            action = data['action'],
+            semantic_id = data['semantic_id'],
+            compression_ratio = data['compression_ratio']
         )
 
     def GetStatus(self, request, context):
-        # stats = self.log_engine.get_stats()
-        # if not stats:
-        #     stats = {"patterns": 0}
-        print(f"GetStatus called with request: {request}")
-        
+
+        ## Need to handle null responses from the manager class
         try:
-            # Get stats from your business logic
-            # stats = LogEngine.GetStats()
+            data = self.manager_class.get_stats()
+            if not data:
+                return core_engine_pb2.GetStatsResponse(
+                    context.set_code(5),
+                    context.set_details("Ingest not found"),
+                    unique_semantic_patterns = "no unique_semantic_patterns",
+                    total_logs_absorbed = "no total_logs_absorbed",
+                    compression_rate = " no compression_rate",
+                    top_patterns = "no top_patterns"
+                
+                )
             
-            total_logs = 0
-            compressed_logs = 0
-        
-            compression_ratio = 0.0
-
-            data = MessageToDict(request)
-            print(data)
-
-            response = core_engine_pb2.GetStatsResponse(
-                total_logs=str(total_logs),
-                compressed_logs=str(compressed_logs),
-                compression_ratio=str(compression_ratio)
+            return core_engine_pb2.GetStatsResponse(
+                unique_semantic_patterns = data['unique_semantic_patterns'],
+                total_logs_absorbed = data['total_logs_absorbed'],
+                compression_rate = data['compression_rate'],
+                top_patterns = data['top_patterns']
             )
-            
-            print(f"Returning response: {response}")
-            print(f"Returning response: {type(response)}")
-
-
-            print("Hey I just want to see if this works" + str(LogEngine().get_stats()))
-            return response
-            
         except Exception as e:
             print(f"Error in GetStatus: {e}")
             import traceback
