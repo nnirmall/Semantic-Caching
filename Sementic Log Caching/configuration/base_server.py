@@ -1,6 +1,6 @@
 import grpc
 from concurrent import futures
-
+import inspect
 class BaseGRPCServer:
     def __init__(self, port: str):
         self.port = port
@@ -11,6 +11,6 @@ class BaseGRPCServer:
 
     def start(self):
         self.server.add_insecure_port(f"[::]:{self.port}")
-        print(f"✅ gRPC server running on port {self.port}")
+        print(f"""gRPC server running on port {self.port} \n""")
         self.server.start()
         self.server.wait_for_termination()
