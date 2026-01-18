@@ -24,21 +24,24 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11\x63ore_engine.proto\x12\x12semlog.core_engine\"3\n\x10IngestLogRequest\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x0f\n\x07payload\x18\x02 \x01(\t\"O\n\x11IngestLogResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\x12\x0e\n\x06source\x18\x04 \x01(\t\"\x11\n\x0fGetStatsRequest\"Z\n\x10GetStatsResponse\x12\x12\n\ntotal_logs\x18\x01 \x01(\t\x12\x17\n\x0f\x63ompressed_logs\x18\x02 \x01(\t\x12\x19\n\x11\x63ompression_ratio\x18\x03 \x01(\t2\xc9\x01\n\x11\x43oreEngineService\x12\\\n\rPostIngestion\x12$.semlog.core_engine.IngestLogRequest\x1a%.semlog.core_engine.IngestLogResponse\x12V\n\tGetStatus\x12#.semlog.core_engine.GetStatsRequest\x1a$.semlog.core_engine.GetStatsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11\x63ore_engine.proto\x12\x12semlog.core_engine\"L\n\x10IngestLogRequest\x12\x14\n\x0cservice_name\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\"S\n\x11IngestLogResponse\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\x13\n\x0bsemantic_id\x18\x02 \x01(\t\x12\x19\n\x11\x63ompression_ratio\x18\x03 \x01(\t\"9\n\x0cPatternStats\x12\x0f\n\x07pattern\x18\x01 \x01(\t\x12\x18\n\x10occurrence_count\x18\x02 \x01(\x05\"\x11\n\x0fGetStatsRequest\"\xa3\x01\n\x10GetStatsResponse\x12 \n\x18unique_semantic_patterns\x18\x01 \x01(\x05\x12\x1b\n\x13total_logs_absorbed\x18\x02 \x01(\x05\x12\x18\n\x10\x63ompression_rate\x18\x03 \x01(\t\x12\x36\n\x0ctop_patterns\x18\x04 \x03(\x0b\x32 .semlog.core_engine.PatternStats2\xc9\x01\n\x11\x43oreEngineService\x12\\\n\rPostIngestion\x12$.semlog.core_engine.IngestLogRequest\x1a%.semlog.core_engine.IngestLogResponse\x12V\n\tGetStatus\x12#.semlog.core_engine.GetStatsRequest\x1a$.semlog.core_engine.GetStatsResponseB\x05\x92\x03\x02\x08\x02\x62\x08\x65\x64itionsp\xe8\x07')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'core_engine_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'\222\003\002\010\002'
   _globals['_INGESTLOGREQUEST']._serialized_start=41
-  _globals['_INGESTLOGREQUEST']._serialized_end=92
-  _globals['_INGESTLOGRESPONSE']._serialized_start=94
-  _globals['_INGESTLOGRESPONSE']._serialized_end=173
-  _globals['_GETSTATSREQUEST']._serialized_start=175
-  _globals['_GETSTATSREQUEST']._serialized_end=192
-  _globals['_GETSTATSRESPONSE']._serialized_start=194
-  _globals['_GETSTATSRESPONSE']._serialized_end=284
-  _globals['_COREENGINESERVICE']._serialized_start=287
-  _globals['_COREENGINESERVICE']._serialized_end=488
+  _globals['_INGESTLOGREQUEST']._serialized_end=117
+  _globals['_INGESTLOGRESPONSE']._serialized_start=119
+  _globals['_INGESTLOGRESPONSE']._serialized_end=202
+  _globals['_PATTERNSTATS']._serialized_start=204
+  _globals['_PATTERNSTATS']._serialized_end=261
+  _globals['_GETSTATSREQUEST']._serialized_start=263
+  _globals['_GETSTATSREQUEST']._serialized_end=280
+  _globals['_GETSTATSRESPONSE']._serialized_start=283
+  _globals['_GETSTATSRESPONSE']._serialized_end=446
+  _globals['_COREENGINESERVICE']._serialized_start=449
+  _globals['_COREENGINESERVICE']._serialized_end=650
 # @@protoc_insertion_point(module_scope)
